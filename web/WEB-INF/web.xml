@@ -6,7 +6,7 @@
 
     <context-param>
         <!-- Ver https://www.mkyong.com/jsf2/how-to-use-comments-in-jsf-2-0/-->
-        <param-name>facelets.SKIP_COMMENTS</param-name>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
         <param-value>true</param-value>
     </context-param>
 
