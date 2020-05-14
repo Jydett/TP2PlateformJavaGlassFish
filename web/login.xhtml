@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+
+<h:form>
+    <h2>Se connecter</h2>
+    <h:messages style="color: red" layout="table"/>
+    <h:outputLabel value="Login : "/>
+    <h:inputText id="login" value="#{loginForm.login}"/><br/>
+    <h:outputLabel value="Password : "/>
+    <h:inputSecret id="password" value="#{loginForm.password}"/><br/>
+    <h:commandButton action="#{loginForm.connect}" value="Se connecter"/>
+</h:form>
+<h:form>
+    <h2>S'inscrire</h2>
+    <h:messages style="color: red" layout="table"/>
+    <h:outputLabel value="Username : "/>
+    <h:inputText id="usernameInscription" value="#{signUpForm.username}"/><br/>
+    <h:outputLabel value="Login : "/>
+    <h:inputText id="loginInscription" value="#{signUpForm.login}"/><br/>
+    <h:outputLabel value="Password : "/>
+    <h:inputSecret id="passwordInscription" value="#{signUpForm.password}"/><br/>
+    <h:outputLabel value="Mail : "/>
+    <h:inputText id="mailInscription" value="#{signUpForm.mail}"/><br/>
+    <h:commandButton action="#{signUpForm.createUser}" value="S'inscrire"/>
+</h:form>
+
+</html>
+

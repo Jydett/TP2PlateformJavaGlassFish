@@ -49,15 +49,9 @@
             </c:when>
             <c:otherwise>
                 Vous devez vous connecter pour poster un message !
-                <h:form>
-                    <h2>Se connecter</h2>
-                    <h:messages style="color: red" layout="table"/>
-                    <h:outputLabel value="Username : "/>
-                    <h:inputText id="login" value="#{loginForm.login}"/><br/>
-                    <h:outputLabel value="Password : "/>
-                    <h:inputSecret id="password" value="#{loginForm.password}"/><br/>
-                    <h:commandButton action="#{loginForm.connect}" value="Se connecter"/>
-                </h:form>
+
+                <a href="login.xhtml">Se connecter</a>
+                <a href="login.xhtml">S'inscrire</a>
             </c:otherwise>
         </c:choose>
     </h:body>

@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Named
 @ViewScoped
-public class LoginForm implements Serializable {
+public class SignUpForm implements Serializable {
 
     @NotBlank
     @Getter
@@ -27,20 +27,37 @@ public class LoginForm implements Serializable {
     @Setter
     private String password;
 
+    @NotBlank
+    @Getter
+    @Setter
+    private String username;
+
+    @NotBlank
+    @Getter
+    @Setter
+    private String mail;
+
     @Inject
     private MemberDao memberDao;
 
     @Inject
     private ConnectedUser connectedUser;
 
-    public String connect() {
+    public String createUser() {
         Optional<Member> optionalMember = memberDao.authentificate(login, password);
-        if (! optionalMember.isPresent()) {
-            password = login = "";
-            throw new ValidationException("Authentification échouée");
+        if (optionalMember.isPresent()) {
+            throw new ValidationException("Cet utilisaeur existe déjà");
         }
-        connectedUser.setConnectedUser(optionalMember.get());
+        Member member = new Member();
+        member.setLogin(login);
+        member.setPassword(password);
+        member.setAdministrator(false);
+        member.setMail(mail);
+        member.setUsername(username);
+        memberDao.save(member);
+        connectedUser.setConnectedUser(member);
 
-        return "index.html";
+        return "index.xhtml";
     }
+
 }
