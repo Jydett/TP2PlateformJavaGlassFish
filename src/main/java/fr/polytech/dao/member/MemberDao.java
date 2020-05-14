@@ -6,4 +6,5 @@ import java.util.Optional;
 
 public interface MemberDao {
     Optional<Member> authentificate(String login, String password);
+    void save(Member member);
 }
