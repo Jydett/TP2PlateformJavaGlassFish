@@ -32,6 +32,8 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <datasource-mapping>
+          <factory-entry name="Entities" />
+          <factory-entry name="TP2PlateformJavaGlassFish" />
           <factory-entry name="Test" />
         </datasource-mapping>
         <naming-strategy-map />
@@ -83,15 +85,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.glassfish.hk2:hk2-utils:2.5.0-b44" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.glassfish.main.common:simple-glassfish-api:5.0" level="project" />
-    <orderEntry type="module-library">
-      <library name="Maven: com.sun:tools-jar:1">
-        <CLASSES>
-          <root url="jar://C:/Program Files/Java/jdk1.8.0_201/lib/tools.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.glassfish:javax.faces:2.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.el:javax.el-api:3.0.1-b04" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.glassfish:javax.el:3.0.1-b04" level="project" />
