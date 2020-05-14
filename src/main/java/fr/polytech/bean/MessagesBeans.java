@@ -32,4 +32,22 @@ public class MessagesBeans implements Serializable {
         }
         currentPage = messageDao.getMessagePage(pageNumber);
     }
+
+    public void delete(Long id) {
+        messageDao.delete(id);
+    }
+
+    public void upvote(Long id) {
+
+        reload();
+    }
+
+    public void downvote(Long id) {
+
+        reload();
+    }
+
+    public void reload() {
+        changeCurrentPage(currentPage.getPageNumber());
+    }
 }

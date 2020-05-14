@@ -9,11 +9,11 @@ import javax.annotation.PostConstruct;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
-public abstract class HibernateDao<T extends Identifiable> implements Serializable {
+public abstract class HibernateDao<Id extends Serializable, T extends Identifiable<Id>> implements Serializable {
 
     protected Session SESSION;
 
@@ -44,6 +44,10 @@ public abstract class HibernateDao<T extends Identifiable> implements Serializab
         transaction.commit();
     }
 
+    public Optional<T> getById(Id id) {
+        return Optional.ofNullable(SESSION.get(clazz, id));
+    }
+
     public void remove(T toRemove) {
         Transaction transaction = SESSION.beginTransaction();
         SESSION.delete(toRemove);
@@ -69,5 +73,9 @@ public abstract class HibernateDao<T extends Identifiable> implements Serializab
         if (SESSION == null || ! SESSION.isOpen()) {
             SESSION = new Configuration().configure().buildSessionFactory().openSession();
         }
+    }
+
+    protected Optional<T> getOne(Query<T> query) {
+        return Optional.ofNullable(query.uniqueResult());
     }
 }
