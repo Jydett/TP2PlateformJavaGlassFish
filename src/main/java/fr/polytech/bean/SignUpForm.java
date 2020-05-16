@@ -9,6 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.ValidationException;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Optional;
@@ -32,7 +33,7 @@ public class SignUpForm implements Serializable {
     @Setter
     private String username;
 
-    @NotBlank
+    @Email
     @Getter
     @Setter
     private String mail;
@@ -57,7 +58,7 @@ public class SignUpForm implements Serializable {
         memberDao.save(member);
         connectedUser.setConnectedUser(member);
 
-        return "index.xhtml";
+        return "home.xhtml";
     }
 
 }

@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.ValidationException;
 import java.io.Serializable;
 
 @Named("messages")
@@ -38,12 +39,16 @@ public class MessagesBeans implements Serializable {
     }
 
     public void upvote(Long id) {
-
+        Message message = messageDao.getById(id).orElseThrow(() -> new ValidationException("This id doen't exist"));
+        message.setReputation(message.getReputation() + 1);
+        messageDao.save(message);
         reload();
     }
 
     public void downvote(Long id) {
-
+        Message message = messageDao.getById(id).orElseThrow(() -> new ValidationException("This id doen't exist"));
+        message.setReputation(message.getReputation() - 1);
+        messageDao.save(message);
         reload();
     }
 

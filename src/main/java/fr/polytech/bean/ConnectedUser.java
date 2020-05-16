@@ -28,4 +28,8 @@ public class ConnectedUser implements Serializable {
     public void setConnectedUser(Member u) {
         user = u;
     }
+
+    public void disconnect() {
+        user = null;
+    }
 }

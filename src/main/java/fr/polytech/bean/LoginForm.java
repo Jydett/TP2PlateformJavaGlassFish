@@ -41,6 +41,6 @@ public class LoginForm implements Serializable {
         }
         connectedUser.setConnectedUser(optionalMember.get());
 
-        return "index.html";
+        return "home.html";
     }
 }

@@ -13,7 +13,7 @@ import java.util.Optional;
 @Stateless
 public class HibernateMessageDao extends HibernateDao<Long, Message> implements MessageDao {
 
-    private static final int PAGE_SIZE = 10;
+    private static final int PAGE_SIZE = 6;
 
     public HibernateMessageDao() {
         super(Message.class);

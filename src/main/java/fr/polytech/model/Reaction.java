@@ -18,5 +18,6 @@ public class Reaction implements Identifiable<Long> {
     @ManyToOne
     private Member user;
 
-    private Boolean isPositive;
+    @Column(nullable = false, columnDefinition = "TINYINT(1)")
+    private Boolean value;
 }

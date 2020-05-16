@@ -21,8 +21,7 @@ public abstract class HibernateDao<Id extends Serializable, T extends Identifiab
     protected final Class<T> clazz;
     protected final String tableName;
 
-    public HibernateDao(/*Session hibernateSession,*/ Class<T> clazz) {
-//        this.hibernateSession = hibernateSession;
+    public HibernateDao(Class<T> clazz) {
         this.clazz = clazz;
         Table tableAnnotation = clazz.getAnnotation(Table.class);
         if (tableAnnotation == null || tableAnnotation.name().isEmpty()) {

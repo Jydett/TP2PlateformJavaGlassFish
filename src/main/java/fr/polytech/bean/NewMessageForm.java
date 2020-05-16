@@ -35,7 +35,7 @@ public class NewMessageForm implements Serializable {
         if (! connectedUser.isConnected()) {
             throw new ValidationException("Vous devez etre connecté pour poster un message");
         }
-        messageDao.save(new Message(message, connectedUser.getMember(), LocalDateTime.now(), 0));
+        messageDao.save(new Message(message, connectedUser.getMember(), LocalDateTime.now()));
         messagesBeans.reload();
         message = "";
     }

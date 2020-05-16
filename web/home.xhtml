@@ -1,58 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
-       <title>Accueil</title>
+        <title>Accueil</title>
+        <h:outputStylesheet library="webjars" name="bootstrap/3.2.0/css/bootstrap.min.css"/>
+        <h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome.min-jsf.css"/>
+        <h:outputScript library="webjars" name="jquery/3.1.1/jquery.min.js"/>
+        <h:outputScript library="webjars" name="bootstrap/3.2.0/js/bootstrap.min.js"/>
+        <style>
+            /* Make the image fully responsive */
+            .carousel-inner img {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
     </h:head>
-    <h:graphicImage library="img" name="logo.jpg"/>
-    <h:body>
-        <h1>Qui sommes nous ?</h1>
-        <p>
-            Pour rejoindre le prestigieux Club des Chasseurs de Menhirs à Bicyclette,
-            il faut... visiter des menhirs (et autres sites mégalithiques) à vélo,
-            tout simplement.
-        </p>
-        <p>
-            Le terme mégalithe est ici utilisé en son sens le plus commun,
-            à savoir un monument constitué d’une ou plusieurs pierres de grandes dimensions,
-            érigées (ou levées) par les hommes, sans l’aide de mortier ou de ciment pour fixer
-            la structure, dans des temps reculés allant du Mésolithique (-10 000 avant JC) jusqu’à
-            l’Âge du bronze (-1000 avant JC) environ.
-        </p>
-        <p>
-            Il n’existe pas de liste “officielle” des mégalithes encore existants,
-            mais certains sites Internet les recensent de manière exhaustive.
-            Par exemple :
-            <a href="http://www.t4t35.fr/Megalithes/Default.aspx?fbclid=IwAR116QWfZD6pktb1t-Ii8yDJbg3ZZbtZQ-TIqYChDtEAQBlARHBHMRO1clQ">http://www.t4t35.fr/Megalithes/Default.aspx</a>
-            ou encore
-            <a href="http://www.megalithes-breton.fr/index.php?width=1920&amp;height=1080&amp;fbclid=IwAR2E8qeHB--jOGlVb7iu5_TBPerkhzIjVQBZQ1yKKv-LRrRpF7WvnmGoncE">http://www.megalithes-breton.fr/index.php?width=1920&amp;height=1080</a>
-            . Il n’y a aucune limite géographique, tous les pays du monde peuvent être concernés.
-        </p>
-        <p>
-            Cette page a pour but de regrouper les personnes pratiquant cette activité,
-            le principe étant de partager des photos de vous et/ou votre bicyclette devant
-            les mégalithes en question. Passionné de préhistoire, cycliste averti,
-            esprit païen ou simple curieux, tout le monde a sa place dans le Club pour peu qu’il
-            visite ces lieux sacrés ancestraux sur la selle de sa bicyclette, à la force des mollets.
-        </p>
-        <p>
-            Puisse l’atmosphère si particulière de ces anciens sanctuaires vous être bénéfique
-            et nourrir vos réflexions sur nos lointaines origines communes et la place que nous
-            occupons sur notre Terre nourricière.
-        </p>
-        <p>
-            O Ghel An Heu.
-        </p>
-        <br></br><br></br><br></br>
-        <p>Rejoignez nous sur Facebook !</p>
-        <a href="https://www.facebook.com/chasseurs.menhirs.bicyclette/">
-            <h:graphicImage library="img" name="facebook.jpg"/>
-            oui
-        </a>
+    <h:body style="margin-top: 75px;">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a><i class="fa fa-home"></i> Acceuil</a></li>
+                    <li><a href="comments.xhtml"><i class="fa fa-comments"></i> Livre d'or</a></li>
+                </ul>
+                <c:choose>
+                    <c:when test="#{connectedUser.connected}">
+                        <h:form class="navbar-right">
+                            <p class="navbar-text"><i class="fa fa-user-o"/> #{connectedUser.member.username}</p>
+                            <h:commandButton value="Se déconnecter" action="#{connectedUser.disconnect}" styleClass="navbar-btn btn btn-default"/>
+                        </h:form>
+                    </c:when>
+                    <c:otherwise>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="signin.xhtml"><i class="fa fa-user-o"/> S'enregistrer</a></li>
+                            <li><a href="login.xhtml"><i class="fa fa-sign-in"/> Se Connecter</a></li>
+                        </ul>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10">
+                    <h:graphicImage library="img" name="menir.jpg" width="100%" style="max-height: 300px; object-fit: cover;"/>
+                    <h1>Qui sommes nous ?</h1>
+                    <p>
+                        Pour rejoindre le prestigieux Club des Chasseurs de Menhirs à Bicyclette,
+                        il faut... visiter des menhirs (et autres sites mégalithiques) à vélo,
+                        tout simplement.
+                    </p>
+                    <marquee direction="right" class="fa" style="width: 100%">&#xf206;</marquee>
+                    <p>
+                        Le terme mégalithe est ici utilisé en son sens le plus commun,
+                        à savoir un monument constitué d’une ou plusieurs pierres de grandes dimensions,
+                        érigées (ou levées) par les hommes, sans l’aide de mortier ou de ciment pour fixer
+                        la structure, dans des temps reculés allant du Mésolithique (-10 000 avant JC) jusqu’à
+                        l’Âge du bronze (-1000 avant JC) environ.
+                    </p>
+                    <marquee direction="right" class="fa" style="width: 100%">&#xf206;</marquee>
+                    <p>
+                        Il n’existe pas de liste “officielle” des mégalithes encore existants,
+                        mais certains sites Internet les recensent de manière exhaustive.
+                        Par exemple :
+                        <a href="http://www.t4t35.fr/Megalithes/Default.aspx?fbclid=IwAR116QWfZD6pktb1t-Ii8yDJbg3ZZbtZQ-TIqYChDtEAQBlARHBHMRO1clQ">http://www.t4t35.fr/Megalithes/Default.aspx</a>
+                        ou encore
+                        <a href="http://www.megalithes-breton.fr/index.php?width=1920&amp;height=1080&amp;fbclid=IwAR2E8qeHB--jOGlVb7iu5_TBPerkhzIjVQBZQ1yKKv-LRrRpF7WvnmGoncE">http://www.megalithes-breton.fr/index.php?width=1920&amp;height=1080</a>
+                        . Il n’y a aucune limite géographique, tous les pays du monde peuvent être concernés.
+                    </p>
+                    <marquee direction="right" class="fa" style="width: 100%">&#xf206;</marquee>
+                    <p>
+                        Cette page a pour but de regrouper les personnes pratiquant cette activité,
+                        le principe étant de partager des photos de vous et/ou votre bicyclette devant
+                        les mégalithes en question. Passionné de préhistoire, cycliste averti,
+                        esprit païen ou simple curieux, tout le monde a sa place dans le Club pour peu qu’il
+                        visite ces lieux sacrés ancestraux sur la selle de sa bicyclette, à la force des mollets.
+                    </p>
+                    <marquee direction="right" class="fa" style="width: 100%">&#xf206;</marquee>
+                    <p>
+                        Puisse l’atmosphère si particulière de ces anciens sanctuaires vous être bénéfique
+                        et nourrir vos réflexions sur nos lointaines origines communes et la place que nous
+                        occupons sur notre Terre nourricière.
+                    </p>
+                    <marquee direction="right" class="fa" style="width: 100%">&#xf206;</marquee>
+                    <p>
+                        O Ghel An Heu.
+                    </p>
+                    <marquee direction="right" class="fa" style="width: 100%">&#xf206;</marquee>
+                    <br/><br/>
+                    <div id="menhirShow" class="carousel slide" data-ride="carousel">
+                        <ul class="carousel-indicators">
+                            <li data-target="#menhirShow" data-slide-to="0" class="active"></li>
+                            <li data-target="#menhirShow" data-slide-to="1"></li>
+                            <li data-target="#menhirShow" data-slide-to="2"></li>
+                        </ul>
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <h:graphicImage library="img" name="slide.jpg" style="max-height: 600px; object-fit: contain"/>
+                                <div class="carousel-caption">
+                                    <h3>Arnac-la-Poste (87)</h3>
+                                    <p>Un petit ménhir sur le bord de la route.</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <h:graphicImage library="img" name="slide2.jpg" style="max-height: 600px; object-fit: contain"/>
+                                <div class="carousel-caption">
+                                    <h3>Vatan (36)</h3>
+                                    <p>Ma plus belle prise !</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <h:graphicImage library="img" name="slide3.jpg" style="max-height: 600px; object-fit: contain"/>
+                                <div class="carousel-caption">
+                                    <h3>Andouillé (52)</h3>
+                                    <p>La vue est belle du haut de mes ménhirs.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Rejoignez nous sur Facebook !</p>
+                    <p><a title="Facebook" href="https://www.facebook.com/chasseurs.menhirs.bicyclette/"><span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-facebook fa-stack-1x"></i></span></a></p>
+                    <h:graphicImage library="img" name="logo.jpg"/>
+<!--                    <a href="https://www.facebook.com/chasseurs.menhirs.bicyclette/">-->
+<!--                        <h:graphicImage library="img" name="facebook.jpg"/>-->
+<!--                        oui-->
+<!--                    </a>-->
+                </div>
+            </div>
+        </div>
 
     </h:body>
 </html>
