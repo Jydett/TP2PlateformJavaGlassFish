@@ -39,7 +39,7 @@ public abstract class HibernateDao<Id extends Serializable, T extends Identifiab
 
     public void save(T toSave) {
         Transaction transaction = SESSION.beginTransaction();
-        SESSION.save(toSave);
+        SESSION.saveOrUpdate(toSave);
         transaction.commit();
     }
 

@@ -8,6 +8,16 @@
         <h:outputStylesheet library="webjars" name="bootstrap/3.2.0/css/bootstrap.min.css"/>
         <h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome.min-jsf.css"/>
         <h:outputStylesheet library="css" name="roundedButton.css"/>
+        <style>
+            .notUpvoted {
+                color:#5cb85c !important;
+                background-color:#fff !important;
+            }
+            .notDownvoted {
+                color:#d9534f !important;
+                background-color:#fff !important;
+            }
+        </style>
     </h:head>
     <h:body style="margin-top: 75px">
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -36,35 +46,7 @@
             <div class="row">
                 <div class="col-lg-10">
                     <h1>Le livre d'or</h1>
-                    <h:graphicImage library="img" name="logo.jpg"/>
-<!--                    <h3>Page #{messages.currentPage.pageNumber} sur #{messages.currentPage.numberOfPages} (#{messages.currentPage.totalResult} commentaires)</h3>-->
-                    <h:form>
-                        <c:forEach var="i" begin="1" end="#{messages.currentPage.numberOfPages}">
-                            <h:commandButton action="#{messages.changeCurrentPage(i)}" value="#{i}" styleClass="btn btn-circle btn-sm #{messages.currentPage.pageNumber == i ? 'active btn-primary' : 'btn-default'}"/>
-                        </c:forEach>
-                        (#{messages.currentPage.totalResult} commentaires)
-                    </h:form>
-                    <br/>
-                    <h:form>
-                        <h:dataTable value="#{messages.currentPage.list}" var="message">
-                            <h:column>
-                                <h:commandButton action="#{messages.upvote(message.id)}" value="&#xf087;" rendered="#{connectedUser.connected}" styleClass="fa btn-circle btn-success"/><!--TODO voter qu'une fois -->
-                                <strong style="margin-right: 3px">#{message.reputation}</strong>
-                                <h:commandButton action="#{messages.downvote(message.id)}" value="&#xf088;" rendered="#{connectedUser.connected}" styleClass="fa btn-circle btn-danger"/>
-                            </h:column>
-                            <h:column>
-                                <h3 style="margin-top: 0">
-                                    <i class="fa fa-comment"/>
-                                    <h:outputText rendered="#{message.author.administrator}" style="color: red" value=" #{message.author.username}"/>
-                                    <h:outputText rendered="#{not message.author.administrator}" value=" #{message.author.username}"/>
-                                a dit: <small>le #{message.formattedPostedDate} à #{message.formattedPostedTime}</small></h3>
-                                <p>#{message.message}</p>
-                            </h:column>
-                            <h:column rendered="#{connectedUser.isAdminOrId(message.id)}">
-                                <h:commandButton action="#{messages.delete(message.id)}" value="X"/>
-                            </h:column>
-                        </h:dataTable>
-                    </h:form>
+                    <h4>Laissez nous un message !</h4>
                     <c:choose>
                         <c:when test="#{connectedUser.connected}">
                             <div class="well">
@@ -73,8 +55,8 @@
                                     <h:messages style="color: red" layout="table"/>
                                     <div class="form-group">
                                         <h:inputTextarea id="message" value="#{newMessage.message}"
-                                            required="true" requiredMessage="Votre commentaire ne peux pas être vide"
-                                            style="width: 100%" rows="3"
+                                                         required="true" requiredMessage="Votre commentaire ne peux pas être vide"
+                                                         style="width: 100%" rows="3"
                                         >
                                             <f:validateLength maximum="200" />
                                         </h:inputTextarea>
@@ -86,8 +68,37 @@
                         <c:otherwise>
                             Vous devez vous connecter pour poster un message !
                             <a href="login.xhtml">Se connecter</a>
+                            <br/><br/>
                         </c:otherwise>
                     </c:choose>
+<!--                    <h3>Page #{messages.currentPage.pageNumber} sur #{messages.currentPage.numberOfPages} (#{messages.currentPage.totalResult} commentaires)</h3>-->
+                    <h:form>
+                        <c:forEach var="i" begin="1" end="#{messages.currentPage.numberOfPages}">
+                            <h:commandButton action="#{messages.changeCurrentPage(i)}" value="#{i}" styleClass="btn btn-circle btn-sm #{messages.currentPage.pageNumber == i ? 'active btn-primary' : 'btn-default'}"/>
+                        </c:forEach>
+                        (#{messages.currentPage.totalResult} commentaires)
+                    </h:form>
+                    <br/>
+                    <h:form>
+                        <h:dataTable value="#{messages.currentPage.list}" var="message">
+                            <h:column>
+                                <h:commandButton action="#{messages.upvote(message.id)}" value="&#xf087;" rendered="#{connectedUser.connected}" styleClass="#{messages.isUpvoted(message) ? '' : 'notUpvoted'} fa btn-circle btn-success"/><!--TODO voter qu'une fois -->
+                                <strong style="margin-right: 3px">#{message.reputation}</strong>
+                                <h:commandButton action="#{messages.downvote(message.id)}" value="&#xf088;" rendered="#{connectedUser.connected}" styleClass="#{messages.isDownVoted(message) ? '' : 'notDownvoted'} fa btn-circle btn-danger"/>
+                            </h:column>
+                            <h:column>
+                                <h3 style="margin-top: 0">
+                                    <i class="fa fa-comment"/>
+                                    <h:outputText rendered="#{message.author.administrator}" style="color: red" value=" #{message.author.username}"/>
+                                    <h:outputText rendered="#{not message.author.administrator}" value=" #{message.author.username}"/>
+                                a dit: <small>le #{message.formattedPostedDate} à #{message.formattedPostedTime}</small></h3>
+                                <p>#{message.message}</p>
+                            </h:column>
+                            <h:column rendered="#{connectedUser.isAdminOrId(message.id)}">
+                                <h:commandButton action="#{messages.delete(message.id)}" value="X" styleClass="fa btn-circle btn-danger"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
                 </div>
             </div>
         </div>

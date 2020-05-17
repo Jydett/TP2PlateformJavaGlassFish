@@ -30,10 +30,14 @@ public class Message implements Identifiable<Long> {
     @Setter
     private Integer reputation;
 
+    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private final List<Reaction> reactions = new ArrayList<>();
+
     public Message(String message, Member author, LocalDateTime postedTime) {
         this.message = message;
         this.author = author;
         this.postedTime = postedTime;
+        this.reputation = 0;
     }
 
     private static final DateTimeFormatter DATE_UNIQUE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -45,5 +49,13 @@ public class Message implements Identifiable<Long> {
 
     public String getFormattedPostedDate() {
         return postedTime.format(DATE_UNIQUE_FORMAT);
+    }
+
+    public void addReaction(Reaction reaction) {
+        reactions.add(reaction);
+    }
+
+    public void removeReaction(Reaction reaction) {
+        reactions.remove(reaction);
     }
 }

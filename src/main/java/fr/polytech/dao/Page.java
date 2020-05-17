@@ -2,7 +2,7 @@ package fr.polytech.dao;
 
 import java.util.List;
 
-public interface Page<T extends Identifiable> {
+public interface Page<T> {
     List<T> getList();
     int getPageNumber();
     int getPageSize();
