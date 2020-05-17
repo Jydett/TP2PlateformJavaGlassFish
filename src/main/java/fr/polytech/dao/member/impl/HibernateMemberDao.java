@@ -22,4 +22,16 @@ public class HibernateMemberDao extends HibernateDao<Long, Member> implements Me
                 .setParameter("login", login)
                 .setParameter("pass", password));
     }
+
+    @Override
+    public Optional<Member> findUserByLogin(String login) {
+        return super.getOne(SESSION.createQuery("from Member m where m.login = :login", Member.class)
+                .setParameter("login", login));
+    }
+
+    @Override
+    public Optional<Member> findUserByMail(String mail) {
+        return super.getOne(SESSION.createQuery("from Member m where m.mail = :mail", Member.class)
+                .setParameter("mail", mail));
+    }
 }

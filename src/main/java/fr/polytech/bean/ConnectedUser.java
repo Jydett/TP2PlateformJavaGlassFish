@@ -16,11 +16,6 @@ public class ConnectedUser implements Serializable {
         return user != null;
     }
 
-    public boolean isAdminOrId(Long memberId) {
-        System.out.println("isAdminOrId(" + memberId + ")");
-        return isConnected() && (user.getAdministrator() || user.getId().equals(memberId));
-    }
-
     public Member getMember() {
         return user;
     }

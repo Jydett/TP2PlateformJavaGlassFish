@@ -45,6 +45,7 @@ public class MessagesBeans implements Serializable {
 
     public void delete(Long id) {
         messageDao.delete(id);
+        reload();
     }
 
     public void upvote(Long id) {

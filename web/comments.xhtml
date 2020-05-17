@@ -94,8 +94,9 @@
                                 a dit: <small>le #{message.formattedPostedDate} à #{message.formattedPostedTime}</small></h3>
                                 <p>#{message.message}</p>
                             </h:column>
-                            <h:column rendered="#{connectedUser.isAdminOrId(message.id)}">
-                                <h:commandButton action="#{messages.delete(message.id)}" value="X" styleClass="fa btn-circle btn-danger"/>
+                            <h:column>
+                                <h:commandButton action="#{messages.delete(message.id)}" value="X" styleClass="fa btn-circle btn-danger"
+                                     rendered="#{connectedUser.connected and (connectedUser.member.administrator or connectedUser.member.id == message.author.id)}"/>
                             </h:column>
                         </h:dataTable>
                     </h:form>

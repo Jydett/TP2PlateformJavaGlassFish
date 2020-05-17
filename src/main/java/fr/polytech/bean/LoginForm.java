@@ -5,6 +5,8 @@ import fr.polytech.model.Member;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -37,7 +39,8 @@ public class LoginForm implements Serializable {
         Optional<Member> optionalMember = memberDao.authentificate(login, password);
         if (! optionalMember.isPresent()) {
             password = login = "";
-            throw new ValidationException("Authentification échouée");
+            FacesContext.getCurrentInstance().addMessage("loginForm", new FacesMessage("Authentification échouée"));
+            return null;
         }
         connectedUser.setConnectedUser(optionalMember.get());
 
