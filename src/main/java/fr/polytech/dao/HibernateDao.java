@@ -63,8 +63,8 @@ public abstract class HibernateDao<Id extends Serializable, T extends Identifiab
         query.setFirstResult((pageNumber - 1) * pageSize);
         final List<T> res = query.list();
         Long totalResults = (Long) SESSION.createQuery("select count (t.id) from " + className + " t").uniqueResult();
-        int numberOfPages = (int) (totalResults / (long) pageSize);
-        return new PageImpl<>(res, pageSize, pageNumber, totalResults, ++numberOfPages);//TODO bug a la suppression d'une page
+        int numberOfPages = Double.valueOf(Math.ceil(((double)totalResults / (double) pageSize))).intValue();
+        return new PageImpl<>(res, pageSize, pageNumber, totalResults, numberOfPages);
     }
 
     @PostConstruct

@@ -1,0 +1,8 @@
+.notUpvoted {
+    color:#5cb85c !important;
+    background-color:#fff !important;
+}
+.notDownvoted {
+    color:#d9534f !important;
+    background-color:#fff !important;
+}

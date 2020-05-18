@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Membres</title>
+    <h:outputStylesheet library="webjars" name="bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome.min-jsf.css"/>
+    <h:outputStylesheet library="css" name="roundedButton.css"/>
+</h:head>
+<h:body style="margin-top: 75px;">
+    <ui:include src="template/navbar.xhtml"><ui:param name="from" value="members"/></ui:include>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                <h1>Nos members :</h1>
+                <h:form>
+                    <c:forEach var="i" begin="1" end="#{members.currentPage.numberOfPages}">
+                        <h:commandButton action="#{members.changeCurrentPage(i)}" value="#{i}" styleClass="btn btn-circle btn-sm #{members.currentPage.pageNumber == i ? 'active btn-primary' : 'btn-default'}"/>
+                    </c:forEach>
+                    (#{members.currentPage.totalResult} membres)
+                </h:form>
+                <h:dataTable value="#{members.currentPage.list}" var="member">
+                    <h:column>
+                        #{member.username}
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>

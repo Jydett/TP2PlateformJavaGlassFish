@@ -1,6 +1,7 @@
 package fr.polytech.dao.member.impl;
 
 import fr.polytech.dao.HibernateDao;
+import fr.polytech.dao.Page;
 import fr.polytech.dao.member.MemberDao;
 import fr.polytech.model.Member;
 
@@ -11,6 +12,8 @@ import java.util.Optional;
 @Named
 @Stateless
 public class HibernateMemberDao extends HibernateDao<Long, Member> implements MemberDao {
+
+    private static final int PAGE_SIZE = 10;
 
     public HibernateMemberDao() {
         super(Member.class);
@@ -33,5 +36,10 @@ public class HibernateMemberDao extends HibernateDao<Long, Member> implements Me
     public Optional<Member> findUserByMail(String mail) {
         return super.getOne(SESSION.createQuery("from Member m where m.mail = :mail", Member.class)
                 .setParameter("mail", mail));
+    }
+
+    @Override
+    public Page<Member> getMemberPage(int pageNumber) {
+        return super.getPage("from Member m", PAGE_SIZE, pageNumber);
     }
 }
