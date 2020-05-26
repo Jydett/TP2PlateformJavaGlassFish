@@ -1,6 +1,7 @@
 package fr.polytech.bean;
 
 import fr.polytech.dao.member.MemberDao;
+import fr.polytech.constants.Constants;
 import fr.polytech.model.Member;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.ValidationException;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -20,22 +20,22 @@ import java.util.Optional;
 @ViewScoped
 public class SignUpForm implements Serializable {
 
-    @NotBlank(message = "Le login ne peut pas être vide")
+    @NotBlank(message = Constants.Errors.LOGIN_IS_EMPTY)
     @Getter
     @Setter
     private String login;
 
-    @NotBlank(message = "Le mot de passe ne peut pas être vide")
+    @NotBlank(message = Constants.Errors.PASSWORD_IS_EMPTY)
     @Getter
     @Setter
     private String password;
 
-    @NotBlank(message = "Le nom de compte ne peut pas être vide")
+    @NotBlank(message = Constants.Errors.USERNAME_IS_EMPTY)
     @Getter
     @Setter
     private String username;
 
-    @Email(message = "Ce mail n'est pas valide")
+    @Email(message = Constants.Errors.MAIL_NOT_VALID)
     @Getter
     @Setter
     private String mail;
@@ -50,12 +50,12 @@ public class SignUpForm implements Serializable {
         Optional<Member> optionalMember = memberDao.findUserByLogin(login);
         boolean error = false;
         if (optionalMember.isPresent()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Cet login est déjà utilisé"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(Constants.Errors.LOGIN_ALREADY_USED));
             error = true;
         }
         optionalMember = memberDao.findUserByMail(login);
         if (optionalMember.isPresent()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Cet email est déjà utilisé"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(Constants.Errors.EMAIL_ALREADY_USED));
             error = true;
         }
         if (error) {
@@ -69,7 +69,6 @@ public class SignUpForm implements Serializable {
         member.setUsername(username);
         memberDao.save(member);
         connectedUser.setConnectedUser(member);
-        return "home.xhtml";
+        return Constants.Routing.HOME_PAGE;
     }
-
 }

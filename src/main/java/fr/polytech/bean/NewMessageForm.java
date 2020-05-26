@@ -1,5 +1,6 @@
 package fr.polytech.bean;
 
+import fr.polytech.constants.Constants;
 import fr.polytech.dao.message.MessageDao;
 import fr.polytech.model.Message;
 import lombok.Getter;
@@ -19,7 +20,7 @@ public class NewMessageForm implements Serializable {
 
     @Getter
     @Setter
-    @NotBlank(message = "Votre commentaire ne peux pas être vide")
+    @NotBlank(message = Constants.Errors.COMMENT_IS_EMPTY)
     private String message;
 
     @Inject
@@ -33,7 +34,7 @@ public class NewMessageForm implements Serializable {
 
     public void post() {
         if (! connectedUser.isConnected()) {
-            throw new ValidationException("Vous devez etre connecté pour poster un message");
+            throw new ValidationException(Constants.Errors.MUST_BE_CONNECTED_TO_POST);
         }
         messageDao.save(new Message(message, connectedUser.getMember(), LocalDateTime.now()));
         messagesBeans.reload();

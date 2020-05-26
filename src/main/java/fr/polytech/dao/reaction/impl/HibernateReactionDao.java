@@ -15,8 +15,4 @@ public class HibernateReactionDao extends HibernateDao<Long, Reaction> implement
         super(Reaction.class);
     }
 
-    @Override //TODO useless ?
-    public Integer getReactionValueForMessage(Message message) {
-        return null;
-    }
 }

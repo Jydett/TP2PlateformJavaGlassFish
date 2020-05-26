@@ -4,7 +4,7 @@
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Accueil</title>
+        <title>#{i18n['home']}</title>
         <h:outputStylesheet library="webjars" name="bootstrap/3.2.0/css/bootstrap.min.css"/>
         <h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome.min-jsf.css"/>
         <h:outputScript library="webjars" name="jquery/3.1.1/jquery.min.js"/>
@@ -91,7 +91,7 @@
                             </div>
                         </div>
                     </div>
-                    <p>Rejoignez nous sur Facebook !</p>
+                    <p>#{i18n['home.joinUsOnFB']}</p>
                     <p><a title="Facebook" href="https://www.facebook.com/chasseurs.menhirs.bicyclette/"><span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"/><i class="fa fa-facebook fa-stack-1x"/></span></a></p>
                     <h:graphicImage library="img" name="logo.jpg"/>
                 </div>

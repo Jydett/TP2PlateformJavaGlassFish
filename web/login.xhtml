@@ -4,7 +4,7 @@
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Se connecter</title>
+        <title>#{i18n['formlabel.action.login']}</title>
         <h:outputStylesheet library="webjars" name="bootstrap/3.2.0/css/bootstrap.min.css"/>
         <h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome.min-jsf.css"/>
     </h:head>
@@ -15,23 +15,23 @@
                 <div class="col-lg-10">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><strong>Se connecter :</strong></h3>
+                            <h3 class="panel-title"><strong>#{i18n['formlabel.action.login']} :</strong></h3>
                         </div>
                         <div class="panel-body">
                             <h:form role="form" id="loginForm">
                                 <h:messages style="color: red" layout="table"/>
                                 <div class="form-group">
-                                    <h:outputLabel value="Login : "/>
-                                    <h:inputText id="login" value="#{loginForm.login}" class="form-control"/>
+                                    <h:outputLabel value="#{i18n['formlabel.login']} :"/>
+                                    <h:inputText id="login" value="#{loginForm.login}" class="form-control" required="true" requiredMessage="#{i18n['server.from.error.login_is_empty']}"/>
                                 </div>
                                 <div class="form-group">
-                                    <h:outputLabel value="Password : "/>
-                                    <h:inputSecret id="password" value="#{loginForm.password}" class="form-control"/>
+                                    <h:outputLabel value="#{i18n['formlabel.password']} :"/>
+                                    <h:inputSecret id="password" value="#{loginForm.password}" class="form-control" required="true" requiredMessage="#{i18n['server.from.error.password_is_empty']}"/>
                                 </div>
                                 <span>
-                                  <h:commandButton action="#{loginForm.connect}" value="Se connecter" styleClass="btn btn-sm btn-primary"/>
+                                  <h:commandButton action="#{loginForm.connect}" value="#{i18n['formlabel.action.login']}" styleClass="btn btn-sm btn-primary"/>
                                     <span style="float: right">
-                                        Pas encore de compte ? <a href="signin.xhtml">S'inscrire</a>
+                                        #{i18n['formlabel.noAccount']} <a href="signin.xhtml">#{i18n['formlabel.action.signin']}</a>
                                     </span>
                                 </span>
                             </h:form>

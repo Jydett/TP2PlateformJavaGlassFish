@@ -6,9 +6,9 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <ul class="nav navbar-nav">
-                <li class="#{from == 'home' ? 'active' : ''}"><a href="home.xhtml"><i class="fa fa-home"></i> Acceuil</a></li>
-                <li class="#{from == 'comments' ? 'active' : ''}"><a href="comments.xhtml"><i class="fa fa-comments"></i> Livre d'or</a></li>
-                <li class="#{from == 'members' ? 'active' : ''}"><a href="members.xhtml"><i class="fa fa-users"></i> Membres</a></li>
+                <li class="#{from == 'home' ? 'active' : ''}"><a href="home.xhtml"><i class="fa fa-home"></i> #{i18n['home']}</a></li>
+                <li class="#{from == 'comments' ? 'active' : ''}"><a href="comments.xhtml"><i class="fa fa-comments"></i> #{i18n['visitorsbook']}</a></li>
+                <li class="#{from == 'members' ? 'active' : ''}"><a href="members.xhtml"><i class="fa fa-users"></i> #{i18n['members']}</a></li>
             </ul>
             <c:choose>
                 <c:when test="#{connectedUser.connected}">

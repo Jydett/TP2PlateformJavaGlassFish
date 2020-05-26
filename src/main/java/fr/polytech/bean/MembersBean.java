@@ -1,5 +1,6 @@
 package fr.polytech.bean;
 
+import fr.polytech.constants.Constants;
 import fr.polytech.dao.Page;
 import fr.polytech.dao.member.MemberDao;
 import fr.polytech.model.Member;
@@ -27,8 +28,8 @@ public class MembersBean implements Serializable {
     }
 
     public void changeCurrentPage(int pageNumber) {
-        if (pageNumber < 0) {
-            throw new IllegalArgumentException("page number should be > 0");
+        if (pageNumber <= 0) {
+            throw new IllegalArgumentException(Constants.Errors.NEGATIVE_PAGE_NUMBER);
         }
         currentPage = memberDao.getMemberPage(pageNumber);
     }

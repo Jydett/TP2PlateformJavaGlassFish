@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Livre d'or</title>
+        <title>#{i18n['visitorsbook']}</title>
         <h:outputStylesheet library="webjars" name="bootstrap/3.2.0/css/bootstrap.min.css"/>
         <h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome.min-jsf.css"/>
         <h:outputStylesheet library="css" name="roundedButton.css"/>
@@ -16,18 +16,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-10">
-                    <h1>Le livre d'or</h1>
-                    <h4>Laissez nous un message !</h4>
+                    <h1>#{i18n['visitorsbook']}</h1>
+                    <h4>#{i18n['visitorsbook.leaveAComment']}</h4>
                     <c:choose>
                         <c:when test="#{connectedUser.connected}">
                             <div class="well">
-                                <h4><i class="fa fa-paper-plane-o"/> Laisser un commentaire :</h4>
+                                <h4><i class="fa fa-paper-plane-o"/> #{i18n['visitorsbook.commentBox.title']} :</h4>
                                 <h:form role="form">
                                     <h:messages style="color: red" layout="table"/>
                                     <div class="form-group">
                                         <h:inputTextarea id="message" value="#{newMessage.message}"
-                                                         required="true" requiredMessage="Votre commentaire ne peux pas être vide"
-                                                         style="width: 100%" rows="3"
+                                             required="true" requiredMessage="#{i18n['server.from.error.comment_is_empty']}"
+                                             style="width: 100%" rows="3"
                                         >
                                             <f:validateLength maximum="200" />
                                         </h:inputTextarea>
@@ -37,8 +37,8 @@
                             </div>
                         </c:when>
                         <c:otherwise>
-                            Vous devez vous connecter pour poster un message !
-                            <a href="login.xhtml">Se connecter</a>
+                            #{i18n['server.error.must_be_connected_to_post']}
+                            <a href="login.xhtml">#{i18n['formlabel.action.login']}</a>
                             <br/><br/>
                         </c:otherwise>
                     </c:choose>
@@ -46,7 +46,7 @@
                         <c:forEach var="i" begin="1" end="#{messages.currentPage.numberOfPages}">
                             <h:commandButton action="#{messages.changeCurrentPage(i)}" value="#{i}" styleClass="btn btn-circle btn-sm #{messages.currentPage.pageNumber == i ? 'active btn-primary' : 'btn-default'}"/>
                         </c:forEach>
-                        (#{messages.currentPage.totalResult} commentaires)
+                        (#{messages.currentPage.totalResult} #{i18n['visitorsbook.commentBox.comment']})
                     </h:form>
                     <br/>
                     <h:form>
@@ -61,7 +61,11 @@
                                     <i class="fa fa-comment"/>
                                     <h:outputText rendered="#{message.author.administrator}" style="color: red" value=" #{message.author.username}"/>
                                     <h:outputText rendered="#{not message.author.administrator}" value=" #{message.author.username}"/>
-                                a dit: <small>le #{message.formattedPostedDate} à #{message.formattedPostedTime}</small></h3>
+                                    <h:outputFormat value="#{i18n['visitorsbook.commentBox.commentTitle']}">
+                                        <f:param value="#{message.formattedPostedDate}"/>
+                                        <f:param value="#{message.formattedPostedTime}"/>
+                                    </h:outputFormat>
+                                </h3>
                                 <p>#{message.message}</p>
                             </h:column>
                             <h:column>

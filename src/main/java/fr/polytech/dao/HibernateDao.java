@@ -33,7 +33,6 @@ public abstract class HibernateDao<Id extends Serializable, T extends Identifiab
     }
 
     public boolean isEmpty() {
-        System.out.println("[DEBUG] isEmpty " + tableName);
         return ((BigInteger) SESSION.createSQLQuery("SELECT EXISTS (SELECT NULL FROM " + tableName + ")").uniqueResult()).intValue() == 0;
     }
 

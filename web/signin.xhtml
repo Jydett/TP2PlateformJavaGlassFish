@@ -4,7 +4,7 @@
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>S'inscrire</title>
+        <title>#{i18n['formlabel.action.signin']}</title>
         <h:outputStylesheet library="webjars" name="bootstrap/3.2.0/css/bootstrap.min.css"/>
         <h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome.min-jsf.css"/>
     </h:head>
@@ -15,31 +15,31 @@
                 <div class="col-lg-10">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><strong>S'inscrire :</strong></h3>
+                            <h3 class="panel-title"><strong>#{i18n['formlabel.action.signin']} : </strong></h3>
                         </div>
                         <div class="panel-body">
                             <h:form role="form">
                                 <h:messages style="color: red" layout="table"/>
                                 <div class="form-group">
-                                    <h:outputLabel value="Username : "/>
-                                    <h:inputText id="usernameInscription" value="#{signUpForm.username}" class="form-control"/>
+                                    <h:outputLabel value="#{i18n['formlabel.username']} :"/>
+                                    <h:inputText id="usernameInscription" value="#{signUpForm.username}" class="form-control" required="true" requiredMessage="#{i18n['server.from.error.username_is_empty']}"/>
                                 </div>
                                 <div class="form-group">
-                                    <h:outputLabel value="Login : "/>
-                                    <h:inputText id="loginInscription" value="#{signUpForm.login}" class="form-control"/>
+                                    <h:outputLabel value="#{i18n['formlabel.login']} :"/>
+                                    <h:inputText id="loginInscription" value="#{signUpForm.login}" class="form-control" required="true" requiredMessage="#{i18n['server.from.error.login_is_empty']}"/>
                                 </div>
                                 <div class="form-group">
-                                    <h:outputLabel value="Password : "/>
-                                    <h:inputSecret id="passwordInscription" value="#{signUpForm.password}" class="form-control"/>
+                                    <h:outputLabel value="#{i18n['formlabel.password']} :"/>
+                                    <h:inputSecret id="passwordInscription" value="#{signUpForm.password}" class="form-control" required="true" requiredMessage="#{i18n['server.from.error.password_is_empty']}"/>
                                 </div>
                                 <div class="form-group">
-                                    <h:outputLabel value="Mail : "/>
-                                    <h:inputText id="mailInscription" value="#{signUpForm.mail}" class="form-control"/>
+                                    <h:outputLabel value="#{i18n['formlabel.mail']} ;"/>
+                                    <h:inputText id="mailInscription" value="#{signUpForm.mail}" class="form-control" required="true" requiredMessage="#{i18n['server.from.error.mail_is_empty']}"/>
                                 </div>
                                 <span>
-                                    <h:commandButton action="#{signUpForm.createUser}" value="S'inscrire" styleClass="btn btn-sm btn-primary"/>
+                                    <h:commandButton action="#{signUpForm.createUser}" value="#{i18n['formlabel.action.signin']}" styleClass="btn btn-sm btn-primary"/>
                                     <span style="float: right">
-                                        Déjà inscrit ? <a href="login.xhtml">Se connecter</a>
+                                        #{i18n['formlabel.alreadySingedIn']} <a href="login.xhtml">#{i18n['formlabel.action.login']}</a>
                                     </span>
                                 </span>
                             </h:form>

@@ -1,5 +1,6 @@
 package fr.polytech.bean;
 
+import fr.polytech.constants.Constants;
 import fr.polytech.dao.Page;
 import fr.polytech.dao.message.MessageDao;
 import fr.polytech.dao.reaction.ReactionDao;
@@ -19,6 +20,8 @@ import java.util.Optional;
 @ViewScoped
 public class MessagesBeans implements Serializable {
 
+    public static final int DEFAULT_PAGE = 1;
+
     @Getter
     private Page<Message> currentPage;
 
@@ -33,12 +36,12 @@ public class MessagesBeans implements Serializable {
 
     @PostConstruct
     private void load() {
-        changeCurrentPage(1);
+        changeCurrentPage(DEFAULT_PAGE);
     }
 
     public void changeCurrentPage(int pageNumber) {
-        if (pageNumber < 0) {
-            throw new IllegalArgumentException("page number should be > 0");
+        if (pageNumber <= 0) {
+            throw new IllegalArgumentException(Constants.Errors.NEGATIVE_PAGE_NUMBER);
         }
         currentPage = messageDao.getMessagePage(pageNumber);
     }
@@ -58,11 +61,14 @@ public class MessagesBeans implements Serializable {
 
     private void react(Long id, boolean value) {
         if (! connectedUser.isConnected()) {
-            throw new IllegalArgumentException("You must be connected to upvote");
+            throw new IllegalArgumentException(Constants.Errors.MUST_BE_CONNECTED_TO_REACT);
         }
-        Message message = messageDao.getById(id).orElseThrow(() -> new ValidationException("This id doesn't exist"));
+        Message message = messageDao.getById(id).orElseThrow(() -> new ValidationException(Constants.Errors.MESSAGE_DOESNT_EXIST));
 
-        Optional<Reaction> anyReaction = message.getReactions().stream().filter(r -> r.getUser().getId().equals(connectedUser.getMember().getId())).findAny();
+        Optional<Reaction> anyReaction = message
+            .getReactions().stream()
+            .filter(r -> r.getUser().getId().equals(connectedUser.getMember().getId()))
+            .findAny();
         Reaction reaction = anyReaction.orElseGet(() -> new Reaction(message, connectedUser.getMember(), null));
         if (reaction.getValue() == null) {
             message.setReputation(message.getReputation() + (value ? 1 : -1));
@@ -70,7 +76,7 @@ public class MessagesBeans implements Serializable {
             reaction.setValue(value);
             reactionDao.save(reaction);
         } else {
-            if (reaction.getValue().booleanValue() != value) {
+            if (reaction.getValue() != value) {
                 message.setReputation(message.getReputation() + (value ? 2 : -2));
                 reaction.setValue(value);
                 reactionDao.save(reaction);
@@ -93,10 +99,10 @@ public class MessagesBeans implements Serializable {
             return false;
         }
         return message.getReactions()
-                .stream()
-                .filter(Reaction::getValue)
-                .map(r -> r.getUser().getId())
-                .anyMatch(r -> r.equals(connectedUser.getMember().getId()));
+            .stream()
+            .filter(Reaction::getValue)
+            .map(r -> r.getUser().getId())
+            .anyMatch(r -> r.equals(connectedUser.getMember().getId()));
     }
 
     public boolean isDownVoted(Message message) {
@@ -104,9 +110,9 @@ public class MessagesBeans implements Serializable {
             return false;
         }
         return message.getReactions()
-                .stream()
-                .filter(r -> !r.getValue())
-                .map(r -> r.getUser().getId())
-                .anyMatch(r -> r.equals(connectedUser.getMember().getId()));
+            .stream()
+            .filter(r -> !r.getValue())
+            .map(r -> r.getUser().getId())
+            .anyMatch(r -> r.equals(connectedUser.getMember().getId()));
     }
 }
