@@ -19,8 +19,8 @@
                 </c:when>
                 <c:otherwise>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="#{from == 'signin' ? 'active' : ''}"><a href="signin.xhtml"><i class="fa fa-user-o"/> S'enregistrer</a></li>
-                        <li class="#{from == 'login' ? 'active' : ''}"><a href="login.xhtml"><i class="fa fa-sign-in"/> Se Connecter</a></li>
+                        <li class="#{from == 'signin' ? 'active' : ''}"><a href="signin.xhtml"><i class="fa fa-user-o"/> #{i18n['formlabel.action.signin']}</a></li>
+                        <li class="#{from == 'login' ? 'active' : ''}"><a href="login.xhtml"><i class="fa fa-sign-in"/> #{i18n['formlabel.action.login']}</a></li>
                     </ul>
                 </c:otherwise>
             </c:choose>
