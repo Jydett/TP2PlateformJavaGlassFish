@@ -19,7 +19,7 @@
                     <c:forEach var="i" begin="1" end="#{members.currentPage.numberOfPages}">
                         <h:commandButton action="#{members.changeCurrentPage(i)}" value="#{i}" styleClass="btn btn-circle btn-sm #{members.currentPage.pageNumber == i ? 'active btn-primary' : 'btn-default'}"/>
                     </c:forEach>
-                    (#{members.currentPage.totalResult} #{fn:toLowerCase(i18n['members.ourMembers'])})
+                    (#{members.currentPage.totalResult} #{fn:toLowerCase(i18n['members'])})
                 </h:form>
                 <h:dataTable value="#{members.currentPage.list}" var="member">
                     <h:column>

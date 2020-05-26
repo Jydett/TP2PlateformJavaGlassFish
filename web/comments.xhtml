@@ -37,7 +37,7 @@
                             </div>
                         </c:when>
                         <c:otherwise>
-                            #{i18n['server.error.must_be_connected_to_post']}
+                            #{i18n['server.error.must_be_connected_to_post']}.
                             <a href="login.xhtml">#{i18n['formlabel.action.login']}</a>
                             <br/><br/>
                         </c:otherwise>
@@ -61,10 +61,13 @@
                                     <i class="fa fa-comment"/>
                                     <h:outputText rendered="#{message.author.administrator}" style="color: red" value=" #{message.author.username}"/>
                                     <h:outputText rendered="#{not message.author.administrator}" value=" #{message.author.username}"/>
-                                    <h:outputFormat value="#{i18n['visitorsbook.commentBox.commentTitle']}">
-                                        <f:param value="#{message.formattedPostedDate}"/>
-                                        <f:param value="#{message.formattedPostedTime}"/>
-                                    </h:outputFormat>
+                                    #{i18n['visitorsbook.commentBox.says']}
+                                    <small>
+                                        <h:outputFormat value="#{i18n['visitorsbook.commentBox.dateTime']}">
+                                            <f:param value="#{message.formattedPostedDate}"/>
+                                            <f:param value="#{message.formattedPostedTime}"/>
+                                        </h:outputFormat>
+                                    </small>
                                 </h3>
                                 <p>#{message.message}</p>
                             </h:column>
